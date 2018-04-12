@@ -8,6 +8,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
@@ -23,9 +26,13 @@ import javax.persistence.TemporalType;
 @Table(name="workout_active")
 public class ActiveWorkout {
 	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="active_workout_id")
+	private Long id;
+	
 	@ManyToOne
-	@JoinColumns(foreignKey = @ForeignKey(name="workout_id"))
-	//@ForeignKey(name="workout_id")
+	@JoinColumn(name="workout_id")
 	private Workout workout;
 	
 	@Temporal(TemporalType.DATE)
@@ -47,6 +54,14 @@ public class ActiveWorkout {
 	private String comment;
 	
 	private boolean status;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	public Workout getWorkout() {
 		return workout;
