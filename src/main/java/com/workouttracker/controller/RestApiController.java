@@ -10,7 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,6 +56,18 @@ public class RestApiController {
 	}
 	
 	/**
+	 * POST --> Add a category
+	 */
+	@PostMapping("/category")
+	public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+		Category newCategory = categoryService.addCategory(category);
+		if (null == newCategory) {
+			return new ResponseEntity<Category>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Category>(newCategory, HttpStatus.CREATED);
+	}
+	
+	/**
 	 * GET --> Get all workouts
 	 */
 	@GetMapping("/workouts")
@@ -60,6 +77,39 @@ public class RestApiController {
 			return new ResponseEntity<List<Workout>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Workout>>(workouts, HttpStatus.OK);
+	}
+	
+	/**
+	 * POST --> Add a workout
+	 */
+	@PostMapping("/workout")
+	public ResponseEntity<Workout> addWorkout(@RequestBody Workout workout) {
+		Workout newWorkout = workoutService.addWorkout(workout);
+		if (null == newWorkout) {
+			return new ResponseEntity<Workout>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Workout>(newWorkout, HttpStatus.CREATED);
+	}
+	
+	/**
+	 * PUT --> Edit a workout
+	 */
+	@PutMapping("/workout")
+	public ResponseEntity<Workout> editWorkout(@RequestBody Workout workout) {
+		Workout newWorkout = workoutService.editWorkout(workout);
+		if (null == newWorkout) {
+			return new ResponseEntity<Workout>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Workout>(newWorkout, HttpStatus.OK);
+	}
+	
+	/**
+	 * DELETE --> Delete a workout
+	 */
+	@DeleteMapping("/workout/{id}")
+	public ResponseEntity<Workout> deleteWorkout(@PathVariable Long id) {
+		workoutService.deleteWorkout(id);
+		return new ResponseEntity<Workout>(HttpStatus.OK);
 	}
 	
 	
@@ -75,5 +125,21 @@ public class RestApiController {
 		return new ResponseEntity<ActiveWorkout>(workout, HttpStatus.OK);
 	}
 	
+	/**
+	 * POST --> create/modify active workout
+	 */
+	@PostMapping("/active-workout/{action}")
+	public ResponseEntity<ActiveWorkout> ActiveWorkout(@RequestBody ActiveWorkout activeWorkout, @PathVariable String action) {
+		ActiveWorkout newActiveWorkout = null;
+		if(action.equalsIgnoreCase("start")){
+			newActiveWorkout = workoutService.startActiveWorkout(activeWorkout);
+		} else if (action.equalsIgnoreCase("end")){
+			newActiveWorkout = workoutService.endActiveWorkout(activeWorkout);
+		}
+		if (null == newActiveWorkout) {
+			return new ResponseEntity<ActiveWorkout>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<ActiveWorkout>(newActiveWorkout, HttpStatus.OK);
+	}
 	
 }

@@ -18,4 +18,14 @@ public interface WorkoutService {
 	
 	ActiveWorkout getActiveWorkout();
 
+	Workout addWorkout(Workout workout);
+
+	Workout editWorkout(Workout workout);
+
+	void deleteWorkout(Long id);
+
+	ActiveWorkout startActiveWorkout(ActiveWorkout activeWorkout);
+
+	ActiveWorkout endActiveWorkout(ActiveWorkout activeWorkout);
+
 }

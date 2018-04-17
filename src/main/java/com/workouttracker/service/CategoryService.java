@@ -14,5 +14,7 @@ import com.workouttracker.model.Category;
 public interface CategoryService {
 	
 	List<Category> getCategories();
+
+	Category addCategory(Category category);
 	
 }

@@ -33,11 +33,41 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public ActiveWorkout getActiveWorkout() {
-		// TODO Auto-generated method stub
 		/*activeWorkoutRepository.findAll().stream().filter(s -> { 
 			return s.isStatus();
 		});*/
 		return activeWorkoutRepository.findByStatus(true);
+	}
+
+	@Override
+	public Workout addWorkout(Workout workout) {
+		return workoutRepository.save(workout);
+	}
+
+	@Override
+	public Workout editWorkout(Workout workout) {
+		if(workoutRepository.existsById(workout.getId())){
+			return workoutRepository.save(workout);
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteWorkout(Long id) {
+		workoutRepository.deleteById(id);
+	}
+
+	@Override
+	public ActiveWorkout startActiveWorkout(ActiveWorkout activeWorkout) {
+		return activeWorkoutRepository.save(activeWorkout);
+	}
+
+	@Override
+	public ActiveWorkout endActiveWorkout(ActiveWorkout activeWorkout) {
+		if(activeWorkoutRepository.existsById(activeWorkout.getId())){
+			return activeWorkoutRepository.save(activeWorkout);
+		}
+		return null;
 	}
 
 }
