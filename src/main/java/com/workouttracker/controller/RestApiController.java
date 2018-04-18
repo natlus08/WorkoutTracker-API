@@ -68,6 +68,39 @@ public class RestApiController {
 	}
 	
 	/**
+	 * PUT --> Edit a category
+	 */
+	@PutMapping("/category")
+	public ResponseEntity<Category> editCategory(@RequestBody Category category) {
+		Category newCategory = categoryService.editCategory(category);
+		if (null == newCategory) {
+			return new ResponseEntity<Category>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Category>(newCategory, HttpStatus.CREATED);
+	}
+	
+	/**
+	 * Delete --> remove a category
+	 */
+	@DeleteMapping("/category/{id}")
+	public ResponseEntity<Category> editCategory(@PathVariable Long id) {
+		categoryService.removeCategory(id);
+		return new ResponseEntity<Category>(HttpStatus.OK);
+	}
+	
+	/**
+	 * GET --> Get workout
+	 */
+	@GetMapping("/workout/{id}")
+	public ResponseEntity<Workout> getWorkout(@PathVariable Long id) {
+		Workout workout = workoutService.getWorkout(id);
+		if (null == workout) {
+			return new ResponseEntity<Workout>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Workout>(workout, HttpStatus.OK);
+	}
+	
+	/**
 	 * GET --> Get all workouts
 	 */
 	@GetMapping("/workouts")
@@ -123,6 +156,18 @@ public class RestApiController {
 			return new ResponseEntity<ActiveWorkout>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<ActiveWorkout>(workout, HttpStatus.OK);
+	}
+	
+	/**
+	 * GET --> Get active workout
+	 */
+	@GetMapping("/active-workouts")
+	public ResponseEntity<List<ActiveWorkout>> getActiveWorkouts() {
+		List<ActiveWorkout> workouts = workoutService.getActiveWorkouts();
+		if (workouts.isEmpty()) {
+			return new ResponseEntity<List<ActiveWorkout>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<ActiveWorkout>>(workouts, HttpStatus.OK);
 	}
 	
 	/**

@@ -28,4 +28,8 @@ public interface WorkoutService {
 
 	ActiveWorkout endActiveWorkout(ActiveWorkout activeWorkout);
 
+	Workout getWorkout(Long id);
+
+	List<ActiveWorkout> getActiveWorkouts();
+
 }

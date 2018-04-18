@@ -4,6 +4,7 @@
 package com.workouttracker.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,20 @@ public class WorkoutServiceImpl implements WorkoutService {
 			return activeWorkoutRepository.save(activeWorkout);
 		}
 		return null;
+	}
+
+	@Override
+	public Workout getWorkout(Long id) {
+		Optional<Workout> workouts = workoutRepository.findById(id);
+		if(workouts.isPresent()){
+			return workouts.get();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ActiveWorkout> getActiveWorkouts() {
+		return activeWorkoutRepository.findAllByStatus(false);
 	}
 
 }
