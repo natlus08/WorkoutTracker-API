@@ -37,22 +37,22 @@ public class ActiveWorkout {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date")
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	//@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date startDate;
 	
 	@Temporal(TemporalType.TIME)
 	@Column(name = "start_time")
-	@JsonFormat(pattern = "HH:mm:ss")
+	//@JsonFormat(pattern = "HH:mm:ss")
 	private Date startTime;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date")
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	//@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date endDate;
 	
 	@Temporal(TemporalType.TIME)
 	@Column(name = "end_time")
-	@JsonFormat(pattern = "HH:mm:ss")
+	//@JsonFormat(pattern = "HH:mm:ss")
 	private Date endTime;
 	
 	private String comment;
