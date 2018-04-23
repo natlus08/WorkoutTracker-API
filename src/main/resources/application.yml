@@ -19,6 +19,7 @@ spring:
 datasource:
   workouttracker:
     url: jdbc:mysql://localhost:3306/tracker
+    #url: jdbc:mysql://myawsdb.c3qq46n0zao4.ap-south-1.rds.amazonaws.com:3306/tracker
     username: myuser
     password: mypassword
     driverClassName: com.mysql.jdbc.Driver

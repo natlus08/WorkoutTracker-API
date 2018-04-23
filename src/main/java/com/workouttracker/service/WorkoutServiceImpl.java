@@ -34,9 +34,6 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public ActiveWorkout getActiveWorkout() {
-		/*activeWorkoutRepository.findAll().stream().filter(s -> { 
-			return s.isStatus();
-		});*/
 		return activeWorkoutRepository.findByStatus(true);
 	}
 
